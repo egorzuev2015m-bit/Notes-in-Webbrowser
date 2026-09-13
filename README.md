@@ -77,7 +77,7 @@ notes-app/
 Сделано с душой 💜  
 Дизайн и код — **egorzuev2015m-bit**.
 
-Сайт 
+🔗 **Живая демо-версия:** [https://egorzuev2015m-bit.github.io/Notes-in-Webbrowser/](https://egorzuev2015m-bit.github.io/Notes-in-Webbrowser/)
 
 ---
 
