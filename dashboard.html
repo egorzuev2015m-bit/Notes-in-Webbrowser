@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои заметки</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Боковое меню -->
+        <aside class="sidebar">
+            <div class="logo">NOTES</div>
+            <ul>
+                <li><a href="#" class="active"><i class='bx bx-note'></i> Все заметки</a></li>
+                <li><a href="#"><i class='bx bx-star'></i> Избранное</a></li>
+                <li><a href="#"><i class='bx bx-trash'></i> Корзина</a></li>
+                <li><a href="#"><i class='bx bx-cog'></i> Настройки</a></li>
+                <li><a href="#" id="logoutBtn"><i class='bx bx-log-out'></i> Выйти</a></li>
+            </ul>
+        </aside>
+
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Верхняя панель -->
+            <header class="top-bar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Поиск по заметкам...">
+                    <i class='bx bx-search'></i>
+                </div>
+                <div class="user-info">
+                    <span id="greeting">Привет!</span>
+                    <div class="avatar" id="avatar">?</div>
+                </div>
+                <button class="add-note-btn" id="addNoteBtn">
+                    <i class='bx bx-plus'></i> Новая заметка
+                </button>
+            </header>
+
+            <!-- Сетка заметок -->
+            <div class="notes-grid" id="notesGrid">
+                <!-- Пример заметки -->
+                <div class="note-card">
+                    <h3>Добро пожаловать!</h3>
+                    <p>Это твоя первая заметка. Нажми «Новая заметка», чтобы добавить свою запись. Иконки справа позволяют редактировать и удалять.</p>
+                    <div class="note-footer">
+                        <span>13.09.2026</span>
+                        <div class="note-actions">
+                            <i class='bx bx-edit'></i>
+                            <i class='bx bx-trash'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно для создания/редактирования заметки -->
+    <div class="modal" id="noteModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Новая заметка</h2>
+            <input type="text" id="noteTitle" placeholder="Заголовок">
+            <textarea id="noteText" placeholder="Текст заметки..."></textarea>
+            <div class="modal-buttons">
+                <button class="cancel-btn" id="cancelBtn">Отмена</button>
+                <button class="save-btn" id="saveBtn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ================== ПРИВЕТСТВИЕ ПОЛЬЗОВАТЕЛЯ ================== */
+        const savedName = localStorage.getItem('username');
+        const greeting = document.getElementById('greeting');
+        const avatar = document.getElementById('avatar');
+
+        if (savedName) {
+            greeting.textContent = `Привет, ${savedName}!`;
+            avatar.textContent = savedName.charAt(0).toUpperCase();
+        } else {
+            greeting.textContent = 'Привет!';
+            avatar.textContent = '?';
+        }
+
+        /* ================== ВЫХОД ================== */
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        });
+
+        /* ================== МОДАЛЬНОЕ ОКНО ================== */
+        const modal = document.getElementById('noteModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const addNoteBtn = document.getElementById('addNoteBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const notesGrid = document.getElementById('notesGrid');
+        const noteTitle = document.getElementById('noteTitle');
+        const noteText = document.getElementById('noteText');
+
+        let editingCard = null; // Если редактируем существующую заметку
+
+        // Открыть окно для новой заметки
+        addNoteBtn.addEventListener('click', () => {
+            editingCard = null;
+            modalTitle.textContent = 'Новая заметка';
+            noteTitle.value = '';
+            noteText.value = '';
+            modal.classList.add('active');
+        });
+
+        // Закрыть окно
+        cancelBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // Сохранить (создать или обновить)
+        saveBtn.addEventListener('click', () => {
+            const title = noteTitle.value.trim();
+            const text = noteText.value.trim();
+
+            if (!title || !text) {
+                alert('Заполни заголовок и текст заметки.');
+                return;
+            }
+
+            if (editingCard) {
+                // Редактирование
+                editingCard.querySelector('h3').textContent = title;
+                editingCard.querySelector('p').textContent = text;
+                editingCard.querySelector('.note-footer span').textContent =
+                    new Date().toLocaleDateString('ru-RU');
+            } else {
+                // Создание новой
+                const date = new Date().toLocaleDateString('ru-RU');
+                const noteCard = document.createElement('div');
+                noteCard.className = 'note-card';
+                noteCard.innerHTML = `
+                    <h3>${title}</h3>
+                    <p>${text}</p>
+                    <div class="note-footer">
+                        <span>${date}</span>
+                        <div class="note-actions">
+                            <i class='bx bx-edit'></i>
+                            <i class='bx bx-trash'></i>
+                        </div>
+                    </div>
+                `;
+                notesGrid.prepend(noteCard);
+            }
+
+            modal.classList.remove('active');
+        });
+
+        /* ================== ДЕЙСТВИЯ С ЗАМЕТКАМИ (делегирование) ================== */
+        notesGrid.addEventListener('click', (e) => {
+            const card = e.target.closest('.note-card');
+            if (!card) return;
+
+            // Удалить
+            if (e.target.classList.contains('bx-trash')) {
+                if (confirm('Удалить заметку?')) {
+                    card.remove();
+                }
+            }
+
+            // Редактировать
+            if (e.target.classList.contains('bx-edit')) {
+                editingCard = card;
+                modalTitle.textContent = 'Редактировать заметку';
+                noteTitle.value = card.querySelector('h3').textContent;
+                noteText.value = card.querySelector('p').textContent;
+                modal.classList.add('active');
+            }
+        });
+
+        /* ================== ПОИСК ================== */
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('.note-card').forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const text = card.querySelector('p').textContent.toLowerCase();
+                card.style.display = (title.includes(query) || text.includes(query)) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>

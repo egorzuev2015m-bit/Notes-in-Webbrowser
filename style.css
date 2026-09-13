@@ -1,0 +1,577 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("img.png") no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+}
+
+
+/* ==================== СТРАНИЦА ВХОДА ==================== */
+
+.wrapper {
+    width: 420px;
+    height: 450px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    padding: 30px 40px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    outline: none;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+    color: #fff;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.wrapper .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+    accent-color: #fff;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.wrapper .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+
+/* ==================== ГЛАВНАЯ СТРАНИЦА (ЗАМЕТКИ) ==================== */
+
+.dashboard-container {
+    width: 95%;
+    max-width: 1300px;
+    height: 92vh;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+
+/* --- Боковое меню --- */
+
+.sidebar {
+    width: 250px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    flex-shrink: 0;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.sidebar ul {
+    list-style: none;
+    flex-grow: 1;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.sidebar ul li a i {
+    font-size: 20px;
+}
+
+
+/* --- Основной контент --- */
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    min-width: 0;
+}
+
+
+/* --- Верхняя панель --- */
+
+.top-bar {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    flex-wrap: wrap;
+}
+
+.top-bar .search-box {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.top-bar .search-box input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    color: #fff;
+    outline: none;
+    font-size: 14px;
+}
+
+.top-bar .search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.top-bar .search-box i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #e040fb, #7c4dff);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(224, 64, 251, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+
+/* --- Кнопка "Новая заметка" --- */
+
+.add-note-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #333;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    white-space: nowrap;
+}
+
+.add-note-btn:hover {
+    background: #e1bee7;
+    box-shadow: 0 0 20px rgba(224, 64, 251, 0.7);
+    transform: translateY(-2px);
+}
+
+.add-note-btn i {
+    font-size: 18px;
+}
+
+
+/* --- Сетка заметок --- */
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+    align-content: start;
+}
+
+
+/* --- Карточка заметки --- */
+
+.note-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+    word-wrap: break-word;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.note-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #e1bee7;
+    word-wrap: break-word;
+}
+
+.note-card p {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+    font-size: 14px;
+    flex-grow: 1;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.note-card .note-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 10px;
+}
+
+.note-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.note-actions i {
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s, transform 0.3s;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.note-actions i:hover {
+    transform: scale(1.15);
+}
+
+.note-actions .bx-edit:hover {
+    color: #e040fb;
+}
+
+.note-actions .bx-trash:hover {
+    color: #ff5252;
+}
+
+
+/* ==================== МОДАЛЬНОЕ ОКНО ==================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: rgba(50, 20, 80, 0.5);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 2px solid rgba(255, 255, 255, .3);
+    border-radius: 20px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, .5);
+    animation: modalAppear 0.3s ease;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    color: #e1bee7;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 15px;
+    color: #fff;
+    outline: none;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    resize: none;
+    transition: border-color 0.3s;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+    border-color: rgba(224, 64, 251, 0.8);
+    box-shadow: 0 0 15px rgba(224, 64, 251, 0.3);
+}
+
+.modal-content textarea {
+    height: 150px;
+}
+
+.modal-content input::placeholder,
+.modal-content textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.modal-buttons button {
+    padding: 10px 25px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s;
+}
+
+.modal-buttons .cancel-btn {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, .3);
+}
+
+.modal-buttons .cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.modal-buttons .save-btn {
+    background: #fff;
+    color: #333;
+}
+
+.modal-buttons .save-btn:hover {
+    background: #e1bee7;
+    box-shadow: 0 0 20px rgba(224, 64, 251, 0.6);
+}
+
+
+/* ==================== СКРОЛЛБАР ==================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+
+/* ==================== АДАПТИВ ==================== */
+
+@media (max-width: 900px) {
+    .dashboard-container {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+    .sidebar .logo {
+        margin-bottom: 20px;
+    }
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .sidebar ul li {
+        margin-bottom: 0;
+        flex: 1;
+        min-width: 120px;
+    }
+    .notes-grid {
+        grid-template-columns: 1fr;
+    }
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .top-bar .search-box {
+        max-width: 100%;
+    }
+    .user-info {
+        justify-content: center;
+    }
+}
